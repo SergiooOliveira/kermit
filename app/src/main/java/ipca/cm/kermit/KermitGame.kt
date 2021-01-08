@@ -16,7 +16,6 @@ class KermitGame : AppCompatActivity() {
 
         val yourImage = findViewById<ImageView>(R.id.kermit)
 
-
         yourImage.setOnTouchListener{view , event->
             when (event.action){
                 MotionEvent.ACTION_DOWN -> {
