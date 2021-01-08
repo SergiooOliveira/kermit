@@ -14,7 +14,8 @@ class KermitGame : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kermit_game)
 
-        var yourImage = findViewById<ImageView>(R.id.kermit)
+        val yourImage = findViewById<ImageView>(R.id.kermit)
+
 
         yourImage.setOnTouchListener{view , event->
             when (event.action){
