@@ -1,10 +1,10 @@
 package ipca.cm.kermit
 
+import android.app.Activity
 import android.graphics.Point
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class Game : AppCompatActivity() {
+class Game : Activity() {
 
     var gameView : GameView? = null
 

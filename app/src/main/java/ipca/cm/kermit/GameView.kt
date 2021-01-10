@@ -8,7 +8,6 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageView
 
-
 class GameView : SurfaceView, Runnable {
 
     var playing = false
@@ -17,21 +16,17 @@ class GameView : SurfaceView, Runnable {
 
     var player : Player? = null
     val kermit : ImageView? = null
+    var enemies : Enemies? = null
 
     var canvas : Canvas? = null
     var paint : Paint = Paint()
-
-    var squares = arrayListOf<Square>()
 
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
 
         kermit?.findViewById<ImageView>(R.id.kermit)
         player = Player(width, height, kermit)
-
-        /*for (i in 1..3) {
-            squares.add(Square(width, height))
-        }*/
+        enemies = Enemies(width, height, 10)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -57,6 +52,19 @@ class GameView : SurfaceView, Runnable {
     }
 
     private fun update() {
+        enemies?.update()
+        for (e in enemies?.enemiesArray!!) {
+            if (e.y >= e.maxY * 4 && e.playing) {
+                e.playing = false
+                player?.lifesRemaining = player?.lifesRemaining!! - 1
+            }
+        }
+        if (player?.isShooting!!) {
+            player?.shoot()
+            if (player?.shootY!! <= height)
+                player?.isShooting = false
+        }
+
     }
 
     private fun control() {
@@ -69,33 +77,34 @@ class GameView : SurfaceView, Runnable {
                 canvas = surfaceHolder?.lockCanvas()
                 canvas?.drawColor(Color.BLACK)
                 paint.color = Color.WHITE
+                paint.textSize = 40F
+                canvas?.drawText("Lifes remaining: " + player?.lifesRemaining, 0f, 50f, paint)
                 canvas?.drawRect(
                         player?.x!!.toFloat(),
                         player?.y!!.toFloat(),
                         player?.x!!.toFloat() + 100f,
                         player?.y!!.toFloat() + 100f, paint)
-                surfaceHolder?.unlockCanvasAndPost(canvas)
-            }
-
-        }
-
-        /*surfaceHolder?.let {
-            if (it.surface.isValid){
-                canvas = surfaceHolder?.lockCanvas()
-                canvas?.drawColor(Color.BLACK)
-
-                paint.color = Color.WHITE
-                for(s in squares){
-                    canvas?.drawRect(
-                            s.x.toFloat(),
-                            s.y.toFloat(),
-                            s.x.toFloat() + 100F,
-                            s.y.toFloat() + 100F, paint)
+                for (e in enemies?.enemiesArray!!) {
+                    if (e.playing)
+                        canvas?.drawRect(
+                                e.x.toFloat(),
+                                e.y.toFloat(),
+                                e.x.toFloat() + 100f,
+                                e.y.toFloat() + 100f,
+                                paint)
                 }
-
+                paint.color = Color.GREEN
+                if (player?.isShooting!!) {
+                    canvas?.drawRect(
+                            player?.shootX!!.toFloat(),
+                            player?.shootY!!.toFloat(),
+                            player?.shootX!!.toFloat() + 100f,
+                            player?.shootY!!.toFloat() + 100f,
+                            paint)
+                }
                 surfaceHolder?.unlockCanvasAndPost(canvas)
             }
-        }*/
+        }
     }
 
     fun pause(){
@@ -116,23 +125,12 @@ class GameView : SurfaceView, Runnable {
             MotionEvent.ACTION_MOVE -> {
                 player?.x = event.x.toInt()
             }
+            MotionEvent.ACTION_DOWN -> {
+                // shoot tongue
+                player?.shootX = player?.x!!
+                player?.isShooting = true
+            }
         }
-        return true
-
-        /*when (event?.action){
-            MotionEvent.ACTION_UP ->{
-
-            }
-            MotionEvent.ACTION_DOWN ->{
-                for(s in squares){
-                    if (event.x  >  s.x &&  event.x  <  s.x+100) {
-                        if (s.y < event.y && s.y+100 >  event.y) {
-                            s.isGoingDown = true
-                        }
-                    }
-                }
-            }
-        }*/
         return true
     }
 }
