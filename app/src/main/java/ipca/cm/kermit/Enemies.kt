@@ -4,6 +4,7 @@ class Enemies {
     val enemiesArray = arrayListOf<Enemy>()
     var spawnTimer = 0
     constructor(width: Int, height: Int, quantity: Int) {
+
         for (i in 1..quantity) {
             //while loop to delay the spawn of enemies
             while ( spawnTimer < 50000) {
@@ -21,8 +22,6 @@ class Enemies {
     fun update(height: Int) {
         for (e in enemiesArray) {
             e.update(height)
-            //e.updateTimer()
         }
-
     }
 }
