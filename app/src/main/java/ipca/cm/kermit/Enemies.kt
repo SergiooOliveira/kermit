@@ -9,8 +9,11 @@ class Enemies {
         }
     }
 
-    fun update() {
-        for (e in enemiesArray)
-            e.update()
+    fun update(height: Int) {
+        for (e in enemiesArray) {
+            e.update(height)
+            //e.updateTimer()
+        }
+
     }
 }

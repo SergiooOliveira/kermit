@@ -13,6 +13,10 @@ class Player {
     var shootX = 0
     var shootY = 0
 
+    var KermitHeight : Int
+        get() = y
+        set(value) {}
+
     // number of lifes
     var lifesRemaining = 3
 

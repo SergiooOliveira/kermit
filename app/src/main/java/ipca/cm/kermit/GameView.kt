@@ -52,7 +52,7 @@ class GameView : SurfaceView, Runnable {
     }
 
     private fun update() {
-        enemies?.update()
+        enemies?.update(player!!.KermitHeight)
         for (e in enemies?.enemiesArray!!) {
             if (e.y >= e.maxY * 4 && e.playing) {
                 e.playing = false
@@ -77,13 +77,19 @@ class GameView : SurfaceView, Runnable {
                 canvas = surfaceHolder?.lockCanvas()
                 canvas?.drawColor(Color.BLACK)
                 paint.color = Color.WHITE
+
+                //lives left text drawing
                 paint.textSize = 40F
                 canvas?.drawText("Lifes remaining: " + player?.lifesRemaining, 0f, 50f, paint)
+
+                //player drawing
                 canvas?.drawRect(
                         player?.x!!.toFloat(),
                         player?.y!!.toFloat(),
                         player?.x!!.toFloat() + 100f,
                         player?.y!!.toFloat() + 100f, paint)
+
+                //enemies drawing cicle
                 for (e in enemies?.enemiesArray!!) {
                     if (e.playing)
                         canvas?.drawRect(
@@ -93,6 +99,8 @@ class GameView : SurfaceView, Runnable {
                                 e.y.toFloat() + 100f,
                                 paint)
                 }
+
+                //drawing bullets
                 paint.color = Color.GREEN
                 if (player?.isShooting!!) {
                     canvas?.drawRect(

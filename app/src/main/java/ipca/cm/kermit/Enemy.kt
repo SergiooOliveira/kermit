@@ -1,5 +1,6 @@
 package ipca.cm.kermit
 
+import android.widget.Toast
 import java.util.*
 
 class Enemy {
@@ -11,17 +12,9 @@ class Enemy {
     var maxX = 0
     var minX = 0
 
+    private var timer = 0
+    private var respawn = false;
     var playing = true
-
-    private var _isGoingDown = false
-
-    var isGoingDown : Boolean
-        get() = _isGoingDown
-        set(value) {
-            if (y == minY) {
-                _isGoingDown = value
-            }
-        }
 
     constructor(width: Int, height: Int) {
         maxX = width
@@ -34,11 +27,22 @@ class Enemy {
         y = generator.nextInt(maxY)
     }
 
-    fun update(){
-        if (_isGoingDown) {
-            y -= 5
+    fun update(height: Int){
+        if (y > height) {
+            val generator =  Random()
+            x = generator.nextInt(maxX)
+            y = generator.nextInt(maxY)
         }else {
             y += 5
+        }
+    }
+
+    fun updateTimer()
+    {
+        if (timer >= 30 && !playing){
+            respawn = true;
+            playing = true;
+            timer = 0
         }
     }
 }
