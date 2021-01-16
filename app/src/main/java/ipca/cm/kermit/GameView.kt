@@ -89,7 +89,7 @@ class GameView : SurfaceView, Runnable {
                         player?.x!!.toFloat() + 100f,
                         player?.y!!.toFloat() + 100f, paint)
 
-                //enemies drawing cicle
+                //enemies drawing cycle
                 for (e in enemies?.enemiesArray!!) {
                     if (e.playing)
                         canvas?.drawRect(
@@ -128,8 +128,6 @@ class GameView : SurfaceView, Runnable {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
-            MotionEvent.ACTION_UP -> {
-            }
             MotionEvent.ACTION_MOVE -> {
                 player?.x = event.x.toInt()
             }

@@ -13,7 +13,6 @@ class Enemy {
     var minX = 0
 
     private var timer = 0
-    private var respawn = false;
     var playing = true
 
     constructor(width: Int, height: Int) {
@@ -28,21 +27,27 @@ class Enemy {
     }
 
     fun update(height: Int){
-        if (y > height) {
+        if (y > (height + 100f) && playing == true) {
             val generator =  Random()
             x = generator.nextInt(maxX)
             y = generator.nextInt(maxY)
-        }else {
+            playing = false
+        }else if(playing == false){
+            respawn()
+        }else{
             y += 5
         }
     }
 
-    fun updateTimer()
-    {
-        if (timer >= 30 && !playing){
-            respawn = true;
-            playing = true;
+    //respawn delay
+    fun respawn(){
+        timer++
+        if (timer >= 50)
+        {
+            playing = true
             timer = 0
         }
     }
+
+
 }

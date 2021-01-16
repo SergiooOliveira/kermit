@@ -23,8 +23,14 @@ class Player {
     // score
     var currentScore = 0
 
-    //
-    var isShooting = false
+    // shooting boolean
+    private var _isShooting = false
+
+    var isShooting : Boolean
+    get() = _isShooting
+    set(value) {
+        _isShooting = value
+    }
 
     // imageView
     var imageView : ImageView? = null
