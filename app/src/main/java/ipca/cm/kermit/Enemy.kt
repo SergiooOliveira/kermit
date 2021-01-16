@@ -2,7 +2,7 @@ package ipca.cm.kermit
 
 import java.util.*
 
-class Enemie {
+class Enemy {
     var x = 0
     var y = 0
 
