@@ -28,15 +28,11 @@ class Enemy {
 
     fun update(height: Int){
         if (y > (height + 100f) && playing) {
-            val generator =  Random()
-            x = generator.nextInt(maxX)
-            y = generator.nextInt(maxY)
             playing = false
-        }else if(playing){
+        }else if(!playing) {
             respawn()
-        }else{
-            y += 5
         }
+        y += 5
     }
 
     //respawn delay
@@ -44,6 +40,9 @@ class Enemy {
         timer++
         if (timer >= 50)
         {
+            val generator =  Random()
+            x = generator.nextInt(maxX - 100)
+            y = generator.nextInt(maxY)
             playing = true
             timer = 0
         }
