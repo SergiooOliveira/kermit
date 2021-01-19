@@ -135,7 +135,8 @@ class GameView : SurfaceView, Runnable {
                 //drawing bullets
                 if (bullets?.bulletsArray!!.size > 0) {
                     for (b in bullets?.bulletsArray!!)
-                        canvas?.drawBitmap(b.bitmap, b.x.toFloat(), b.y.toFloat(), paint)
+                        if (b.active)
+                            canvas?.drawBitmap(b.bitmap, b.x.toFloat(), b.y.toFloat(), paint)
                 }
                 surfaceHolder?.unlockCanvasAndPost(canvas)
             }
