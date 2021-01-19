@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/fundo"
-    >
+    tools:context=".MainActivity">
 
 
     <Button
@@ -90,7 +89,9 @@
         android:layout_marginTop="106dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
+        android:background="?android:attr/textColorHighlight"
         android:text="scores"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/ScorView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
