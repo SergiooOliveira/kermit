@@ -7,24 +7,34 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageView
+import kotlin.concurrent.timer
 
 class GameView : SurfaceView, Runnable {
-
-    var playing = false
 
     //life removal timer + boolean so it doesn't remove the player's lives all at once
     var lifeRemoval : Boolean = true
     var lifeRemovalTimer : Int = 0
 
+    //game variables
     var surfaceHolder : SurfaceHolder? = null
     var gameThread : Thread? = null
-
-    var player : Player? = null
-    val kermit : ImageView? = null
-    var enemies : Enemies? = null
-
     var canvas : Canvas? = null
     var paint : Paint = Paint()
+
+
+    //player variables
+    var player : Player? = null
+    val kermit : ImageView? = null
+
+    //enemy variables
+    var enemies : Enemies? = null
+    var playing = false
+
+    //bullet variables
+    var bullet : Bullet? = null
+    var _isShooting = false
+    var createBullet = false
+    var bulletCount = 0
 
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
@@ -74,16 +84,16 @@ class GameView : SurfaceView, Runnable {
                 //TODO: gameover logic
                 //else
             }
-
+            //TODO:bullet collision testing + score
+            if(bulletCount > 0) {
+                if (Rect.intersects(bullet!!.collisionRect, e.collisionRect) && _isShooting) {
+                    e.playing = false
+                }
+            }
             if (lifeRemovalTimer > 120) lifeRemoval = true
             lifeRemovalTimer++
         }
-        //TODO: shooting and bullet collision testing + score
-        if (player?.isShooting!!) {
-            player?.shoot()
-            if (player?.shootY!! <= height)
-                player?.isShooting = false
-        }
+        player!!.bitTimer++
     }
 
     private fun control() {
@@ -95,9 +105,9 @@ class GameView : SurfaceView, Runnable {
             if (it.surface.isValid) {
                 canvas = surfaceHolder?.lockCanvas()
                 canvas?.drawColor(Color.BLACK)
-                paint.color = Color.WHITE
 
                 //lives left text drawing
+                paint.color = Color.WHITE
                 paint.textSize = 40F
                 canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
 
@@ -106,20 +116,12 @@ class GameView : SurfaceView, Runnable {
                     if (e.playing)
                         canvas?.drawBitmap(e.bitmap, e.x.toFloat(), e.y.toFloat(), paint)
                 }
-
-                //player drawing
-                canvas?.drawBitmap(player!!.bitmap, player!!.x.toFloat(), player!!.y.toFloat(), paint)
+                player?.changeBitMap()
+                canvas?.drawBitmap(player!!.bitDraw, player!!.x.toFloat(), player!!.y.toFloat(), paint)
 
                 //drawing bullets
-                paint.color = Color.GREEN
-                if (player?.isShooting!!) {
-                    canvas?.drawRect(
-                            player?.shootX!!.toFloat(),
-                            player?.shootY!!.toFloat(),
-                            player?.shootX!!.toFloat() + 100f,
-                            player?.shootY!!.toFloat() + 100f,
-                            paint)
-                }
+                if(_isShooting)
+                    canvas?.drawBitmap(bullet!!.bitmap, bullet!!.x.toFloat(), bullet!!.y.toFloat(), paint)
                 surfaceHolder?.unlockCanvasAndPost(canvas)
             }
         }
@@ -142,11 +144,13 @@ class GameView : SurfaceView, Runnable {
                 player?.x = event.x.toInt()
             }
             MotionEvent.ACTION_DOWN -> {
-                // shoot tongue
-                player?.shootX = player?.x!!
-                player?.isShooting = true
+                //TODO: bullet shooting
+               if (!_isShooting)
+                   createBullet = true
             }
         }
         return true
     }
+
+
 }
