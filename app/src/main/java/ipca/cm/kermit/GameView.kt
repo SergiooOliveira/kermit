@@ -77,6 +77,7 @@ class GameView : SurfaceView, Runnable {
 
             if (lifeRemovalTimer > 120) lifeRemoval = true
             lifeRemovalTimer++
+
         }
         //TODO: shooting and bullet collision testing + score
         if (player?.isShooting!!) {
