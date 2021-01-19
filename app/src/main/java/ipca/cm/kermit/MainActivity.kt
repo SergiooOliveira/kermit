@@ -8,12 +8,12 @@ import android.widget.Button
 
 class MainActivity : Activity() {
 
+    //private var mAuth: FirebaseAuth? = null
+    //private lateinit var storage: FirebaseStorage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //val database = Firebase.database
-
 
         val buttonStart = findViewById<Button>(R.id.button_Start)
         buttonStart.setOnClickListener{
@@ -32,9 +32,5 @@ class MainActivity : Activity() {
             val intent = Intent(this@MainActivity, Scores::class.java)
             startActivity(intent)
         }
-
     }
-
-
-
 }

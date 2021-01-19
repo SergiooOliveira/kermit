@@ -20,7 +20,7 @@ class GameView : SurfaceView, Runnable {
     var gameThread : Thread? = null
     var canvas : Canvas? = null
     var paint : Paint = Paint()
-
+    var _isMoving = false
 
     //player variables
     var player : Player? = null
@@ -41,7 +41,7 @@ class GameView : SurfaceView, Runnable {
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
         player = Player(width, height, context!!)
-        enemies = Enemies(width, height, 3, context!!)
+        enemies = Enemies(width, height, 3, context)
         mContext = getContext()
         bullets = Bullets(context, height)
     }
@@ -158,13 +158,13 @@ class GameView : SurfaceView, Runnable {
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
                 player?.x = event.x.toInt()
+                _isMoving = true
             }
-            MotionEvent.ACTION_DOWN -> {
-               bullets?.addBullet(player?.KermiteWidth!!, player?.KermitHeight!!)
+            MotionEvent.ACTION_UP-> {
+                if (!_isMoving) bullets?.addBullet(player?.KermiteWidth!!, player?.KermitHeight!!)
+                _isMoving = false
             }
         }
         return true
     }
-
-
 }

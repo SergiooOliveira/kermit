@@ -85,17 +85,18 @@
 
     <Button
         android:id="@+id/button_scores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="47dp"
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
-        android:layout_marginTop="106dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:background="@android:drawable/button_onoff_indicator_on"
         android:text="scores"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/ScorView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

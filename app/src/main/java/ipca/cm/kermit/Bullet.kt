@@ -21,7 +21,7 @@ class Bullet {
 
     constructor(x: Int, y: Int, context: Context){
         this.x = x + 50
-        this.y = y + 10
+        this.y = y + 20
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod1)
         bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, true)
         collisionRect = Rect(x, y, bitmap.width, bitmap.height)
