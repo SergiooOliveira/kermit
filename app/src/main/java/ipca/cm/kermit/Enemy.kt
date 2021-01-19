@@ -47,12 +47,13 @@ class Enemy {
             respawn()
         }
         y += 5
+        if (playing) {
+            collisionRect.left = x
+            collisionRect.top = y
+            collisionRect.right = x + bitmap.width
+            collisionRect.bottom = y + bitmap.height
 
-        collisionRect.left = x
-        collisionRect.top = y
-        collisionRect.right = x + bitmap.width
-        collisionRect.bottom = y + bitmap.height
-
+        }else if (!playing) collisionRect.setEmpty() //makes so that the hitbox doesn't hit the player even if the enemy is dead
     }
 
     //respawn delay

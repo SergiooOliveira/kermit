@@ -11,6 +11,11 @@ import android.widget.ImageView
 class GameView : SurfaceView, Runnable {
 
     var playing = false
+
+    //life removal timer + boolean so it doesn't remove the player's lives all at once
+    var lifeRemoval : Boolean = true
+    var lifeRemovalTimer : Int = 0
+
     var surfaceHolder : SurfaceHolder? = null
     var gameThread : Thread? = null
 
@@ -24,7 +29,7 @@ class GameView : SurfaceView, Runnable {
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
         player = Player(width, height, context!!)
-        enemies = Enemies(width, height, 10, context!!)
+        enemies = Enemies(width, height, 3, context!!)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -53,18 +58,25 @@ class GameView : SurfaceView, Runnable {
         player?.update()
         enemies?.update(player!!.KermitHeight)
         for (e in enemies?.enemiesArray!!) {
+
             if (e.y >= e.maxY * 4 && e.playing) {
                 e.playing = false
                 if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
                 //TODO: gameover logic
                 //else
             }
-            if(Rect.intersects(player!!.collisionRect, e.collisionRect)){
+
+            if (Rect.intersects(player!!.collisionRect, e.collisionRect) && lifeRemoval && lifeRemovalTimer >= 120){
                 e.playing = false
+                lifeRemoval = false
+                lifeRemovalTimer = 0
                 if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
                 //TODO: gameover logic
                 //else
             }
+
+            if (lifeRemovalTimer > 120) lifeRemoval = true
+            lifeRemovalTimer++
         }
         //TODO: shooting and bullet collision testing + score
         if (player?.isShooting!!) {
