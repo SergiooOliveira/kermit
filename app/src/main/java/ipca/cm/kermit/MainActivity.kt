@@ -46,8 +46,6 @@ class MainActivity : Activity() {
             val intent = Intent(this@MainActivity, Register::class.java)
             startActivity(intent)
         }
-
-
     }
 
 

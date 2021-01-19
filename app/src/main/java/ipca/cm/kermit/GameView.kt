@@ -9,6 +9,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageView
 
+
 class GameView : SurfaceView, Runnable {
 
     //life removal timer + boolean so it doesn't remove the player's lives all at once
@@ -37,6 +38,8 @@ class GameView : SurfaceView, Runnable {
     var bulletCount = 0
 
     var mContext : Context? = null
+
+    var lifeIcon : Bitmap? = null
 
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
@@ -94,7 +97,6 @@ class GameView : SurfaceView, Runnable {
                 }
             }
 
-            //TODO:bullet collision testing + score
             for (b in bullets?.bulletsArray!!) {
                 if (Rect.intersects(b.collisionRect, e.collisionRect) && b.active) {
                     e.playing = false
@@ -121,7 +123,11 @@ class GameView : SurfaceView, Runnable {
                 //lives left text drawing
                 paint.color = Color.WHITE
                 paint.textSize = 40F
-                canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
+
+                lifeIcon = BitmapFactory.decodeResource(context.resources, R.drawable.life1)
+                lifeIcon = Bitmap.createScaledBitmap(lifeIcon!!, 50, 50, true)
+                canvas?.drawBitmap(lifeIcon!!, 0f, 0f, paint)
+                canvas?.drawText(player?.lifesRemaining.toString(), 50f, 50f, paint)
                 canvas?.drawText("Score: " + player?.currentScore, width - 400f, 50f, paint)
 
                 //enemies drawing cycle
