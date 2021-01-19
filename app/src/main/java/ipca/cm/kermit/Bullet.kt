@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.content.Context
 
-class Bullet {
+class Bullet(x: Int, y: Int, context: Context) {
 
     //position variables
     var x = 0
@@ -19,7 +19,7 @@ class Bullet {
 
     var active = true
 
-    constructor(x: Int, y: Int, context: Context){
+    init {
         this.x = x + 50
         this.y = y + 20
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod1)

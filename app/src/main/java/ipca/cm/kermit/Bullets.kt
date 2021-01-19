@@ -5,14 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 
-class Bullets(context: Context, height: Int) {
+class Bullets(var context: Context, var height: Int) {
 
     var bulletsArray = mutableListOf<Bullet>()
-    var context : Context = context
-    var height : Int = height
 
     fun addBullet(x: Int, y: Int) {
-        bulletsArray.add(Bullet(x, y, context))
+        if (bulletsArray.size > 4)
+            bulletsArray.add(Bullet(x, y, context))
     }
 
     fun update(){
