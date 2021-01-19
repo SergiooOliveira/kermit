@@ -8,8 +8,6 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
-import kotlin.concurrent.timer
 
 class GameView : SurfaceView, Runnable {
 
@@ -33,7 +31,7 @@ class GameView : SurfaceView, Runnable {
     var playing = false
 
     //bullet variables
-    var bullet : Bullet? = null
+    var bullets : Bullets? = null
     var _isShooting = false
     var createBullet = false
     var bulletCount = 0
@@ -45,6 +43,7 @@ class GameView : SurfaceView, Runnable {
         player = Player(width, height, context!!)
         enemies = Enemies(width, height, 3, context!!)
         mContext = getContext()
+        bullets = Bullets(context, height)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -72,6 +71,7 @@ class GameView : SurfaceView, Runnable {
     private fun update() {
         player?.update()
         enemies?.update(player!!.KermitHeight)
+        bullets?.update()
         for (e in enemies?.enemiesArray!!) {
 
             if (e.y >= e.maxY * 4 && e.playing) {
@@ -95,9 +95,10 @@ class GameView : SurfaceView, Runnable {
             }
 
             //TODO:bullet collision testing + score
-            if(bulletCount > 0) {
-                if (Rect.intersects(bullet!!.collisionRect, e.collisionRect) && _isShooting) {
+            for (b in bullets?.bulletsArray!!) {
+                if (Rect.intersects(b.collisionRect, e.collisionRect) && b.active) {
                     e.playing = false
+                    b.active = false
                     player?.currentScore = player?.currentScore?.plus(100)!!
                 }
             }
@@ -132,8 +133,10 @@ class GameView : SurfaceView, Runnable {
                 canvas?.drawBitmap(player!!.bitDraw, player!!.x.toFloat(), player!!.y.toFloat(), paint)
 
                 //drawing bullets
-                if(_isShooting)
-                    canvas?.drawBitmap(bullet!!.bitmap, bullet!!.x.toFloat(), bullet!!.y.toFloat(), paint)
+                if (bullets?.bulletsArray!!.size > 0) {
+                    for (b in bullets?.bulletsArray!!)
+                        canvas?.drawBitmap(b.bitmap, b.x.toFloat(), b.y.toFloat(), paint)
+                }
                 surfaceHolder?.unlockCanvasAndPost(canvas)
             }
         }
@@ -156,9 +159,7 @@ class GameView : SurfaceView, Runnable {
                 player?.x = event.x.toInt()
             }
             MotionEvent.ACTION_DOWN -> {
-                //TODO: bullet shooting
-               if (!_isShooting)
-                   createBullet = true
+               bullets?.addBullet(player?.KermiteWidth!!, player?.KermitHeight!!)
             }
         }
         return true
