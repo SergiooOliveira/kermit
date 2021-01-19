@@ -46,7 +46,7 @@ class Enemy {
         }else if(!playing) {
             respawn()
         }
-        y += 5
+        y += 10
         if (playing) {
             collisionRect.left = x
             collisionRect.top = y

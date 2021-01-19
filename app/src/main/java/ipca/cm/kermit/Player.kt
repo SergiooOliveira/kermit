@@ -38,7 +38,7 @@ class Player {
 
     constructor(width: Int, height: Int, context: Context){
         x = width / 2
-        y = height - (height / 4)
+        y = height - (height / 6)
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod1)
         bitmap2 = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod2)
         bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
