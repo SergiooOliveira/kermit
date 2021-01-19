@@ -46,9 +46,10 @@
 
     <Button
         android:id="@+id/button_beck_op_to_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="43dp"
         android:layout_marginTop="100dp"
+        android:background="@android:drawable/button_onoff_indicator_on"
         android:text="Save and Bcak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
