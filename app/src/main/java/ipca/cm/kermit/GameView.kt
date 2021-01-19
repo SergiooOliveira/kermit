@@ -123,6 +123,7 @@ class GameView : SurfaceView, Runnable {
                 canvas?.drawBitmap(bitmap, 0f,0f,paint)
 
 
+
                 //lives left text drawing
                 paint.textSize = 40F
                 canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
