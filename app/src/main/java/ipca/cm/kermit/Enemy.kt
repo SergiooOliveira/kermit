@@ -26,18 +26,18 @@ class Enemy {
     var collisionRect : Rect
 
     constructor(width: Int, height: Int, context: Context) {
-        maxX = width
-        minX = 0
-        maxY = height / 4
-        minY = 0
 
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pepe_sad)
         bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
-        val generator =  Random()
+        maxX = width - bitmap.width
+        minX = 0
+        maxY = height / 4
+        minY = -200
+        val generator = Random()
         x = generator.nextInt(maxX)
         y = generator.nextInt(maxY)
 
-        collisionRect = Rect(x,y,bitmap.width,bitmap.height)
+        collisionRect = Rect(x, y, bitmap.width, bitmap.height)
     }
 
     fun update(height: Int){
