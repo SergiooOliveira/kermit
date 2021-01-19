@@ -28,7 +28,7 @@ class Bullet(x: Int, y: Int, context: Context) {
     }
 
     fun update(){
-        y -= 5
+        y -= 10
         collisionRect.left = x
         collisionRect.top = y
         collisionRect.right = x + bitmap.width

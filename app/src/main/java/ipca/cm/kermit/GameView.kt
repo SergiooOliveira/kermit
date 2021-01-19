@@ -160,6 +160,7 @@ class GameView : SurfaceView, Runnable {
                 player?.x = event.x.toInt()
                 _isMoving = true
             }
+
             MotionEvent.ACTION_UP-> {
                 if (!_isMoving) bullets?.addBullet(player?.KermiteWidth!!, player?.KermitHeight!!)
                 _isMoving = false
