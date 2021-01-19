@@ -85,11 +85,11 @@
 
     <Button
         android:id="@+id/button_scores"
-        android:layout_width="88dp"
-        android:layout_height="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:background="@android:drawable/button_onoff_indicator_on"
@@ -98,6 +98,32 @@
         app:layout_constraintEnd_toStartOf="@+id/ScorView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="182dp"
+        android:layout_marginLeft="182dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:drawable/button_onoff_indicator_on"
+        android:text="Login"
+        app:layout_constraintEnd_toStartOf="@+id/button_register"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:background="@android:drawable/button_onoff_indicator_on"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_login"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
