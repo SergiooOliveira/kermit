@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fundo"
-    tools:context=".GameOver">
+    tools:context=".Scores">
 
     <TextView
         android:id="@+id/ScorView"
-        android:layout_width="188dp"
-        android:layout_height="207dp"
-        android:layout_marginBottom="125dp"
+        android:layout_width="320dp"
+        android:layout_height="328dp"
+        android:layout_marginBottom="4dp"
         android:text="scor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -29,10 +29,9 @@
         android:layout_marginTop="39dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="106dp"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/ScorView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,20 +39,21 @@
         android:id="@+id/button_agin_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="8dp"
         android:text="Menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ScorView" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="316dp"
-        android:layout_height="122dp"
-        android:src="@drawable/fim_do_jogo"
+        android:id="@+id/imageView3"
+        android:layout_width="169dp"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/scores" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

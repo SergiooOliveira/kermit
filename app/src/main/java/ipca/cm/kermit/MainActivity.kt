@@ -23,6 +23,11 @@ class MainActivity : Activity() {
             startActivity(intent)
         }
 
+        val buttonscores = findViewById<Button>(R.id.button_scores)
+        buttonscores.setOnClickListener{
+            val intent = Intent(this@MainActivity, Scores::class.java)
+            startActivity(intent)
+        }
 
     }
 
