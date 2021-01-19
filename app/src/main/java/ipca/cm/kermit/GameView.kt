@@ -1,12 +1,14 @@
 package ipca.cm.kermit
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import kotlin.concurrent.timer
 
 class GameView : SurfaceView, Runnable {
@@ -36,10 +38,13 @@ class GameView : SurfaceView, Runnable {
     var createBullet = false
     var bulletCount = 0
 
+    var mContext : Context? = null
+
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
         player = Player(width, height, context!!)
         enemies = Enemies(width, height, 3, context!!)
+        mContext = getContext()
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -72,8 +77,10 @@ class GameView : SurfaceView, Runnable {
             if (e.y >= e.maxY * 4 && e.playing) {
                 e.playing = false
                 if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
-                //TODO: gameover logic
-                //else
+                else {
+                    val intent = Intent(mContext, Scores::class.java)
+                    mContext?.startActivity(intent)
+                }
             }
 
             if (Rect.intersects(player!!.collisionRect, e.collisionRect) && lifeRemoval && lifeRemovalTimer >= 120){
@@ -81,18 +88,21 @@ class GameView : SurfaceView, Runnable {
                 lifeRemoval = false
                 lifeRemovalTimer = 0
                 if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
-                //TODO: gameover logic
-                //else
+                else {
+                    val intent = Intent(mContext, Scores::class.java)
+                    mContext?.startActivity(intent)
+                }
             }
+
             //TODO:bullet collision testing + score
             if(bulletCount > 0) {
                 if (Rect.intersects(bullet!!.collisionRect, e.collisionRect) && _isShooting) {
                     e.playing = false
+                    player?.currentScore = player?.currentScore?.plus(100)!!
                 }
             }
             if (lifeRemovalTimer > 120) lifeRemoval = true
             lifeRemovalTimer++
-
         }
         player!!.bitTimer++
     }
@@ -111,6 +121,7 @@ class GameView : SurfaceView, Runnable {
                 paint.color = Color.WHITE
                 paint.textSize = 40F
                 canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
+                canvas?.drawText("Score: " + player?.currentScore, width - 400f, 50f, paint)
 
                 //enemies drawing cycle
                 for (e in enemies?.enemiesArray!!) {
