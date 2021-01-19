@@ -87,7 +87,7 @@ class GameView : SurfaceView, Runnable {
 
                 //lives left text drawing
                 paint.textSize = 40F
-                canvas?.drawText("Lifes remaining: " + player?.lifesRemaining, 0f, 50f, paint)
+                canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
 
                 //enemies drawing cycle
                 for (e in enemies?.enemiesArray!!) {

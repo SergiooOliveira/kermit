@@ -47,6 +47,12 @@ class Enemy {
             respawn()
         }
         y += 5
+
+        collisionRect.left = x
+        collisionRect.top = y
+        collisionRect.right = x + bitmap.width
+        collisionRect.bottom = y + bitmap.height
+
     }
 
     //respawn delay
@@ -60,6 +66,8 @@ class Enemy {
             playing = true
             timer = 0
         }
+
+
     }
 
 
