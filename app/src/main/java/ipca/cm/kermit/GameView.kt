@@ -40,6 +40,8 @@ class GameView : SurfaceView, Runnable {
     var mContext : Context? = null
 
     var lifeIcon : Bitmap? = null
+    var coinScore : Bitmap? = null
+    var background : Bitmap? = null
 
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
@@ -120,15 +122,24 @@ class GameView : SurfaceView, Runnable {
                 canvas = surfaceHolder?.lockCanvas()
                 canvas?.drawColor(Color.BLACK)
 
+                /*background = BitmapFactory.decodeResource(context.resources, R.drawable.fundo)
+                background = Bitmap.createScaledBitmap(background!!, width, height, true)
+                canvas?.drawBitmap(background!!, 0f, 0f, null)*/
+
                 //lives left text drawing
                 paint.color = Color.WHITE
                 paint.textSize = 40F
 
                 lifeIcon = BitmapFactory.decodeResource(context.resources, R.drawable.life1)
                 lifeIcon = Bitmap.createScaledBitmap(lifeIcon!!, 50, 50, true)
-                canvas?.drawBitmap(lifeIcon!!, 0f, 0f, paint)
+                canvas?.drawBitmap(lifeIcon!!, 0f, 10f, paint)
                 canvas?.drawText(player?.lifesRemaining.toString(), 50f, 50f, paint)
-                canvas?.drawText("Score: " + player?.currentScore, width - 400f, 50f, paint)
+
+                coinScore = BitmapFactory.decodeResource(context.resources, R.drawable.point)
+                coinScore = Bitmap.createScaledBitmap(coinScore!!, 50, 50, true)
+
+                canvas?.drawBitmap(coinScore!!, 100f, 10f, paint)
+                canvas?.drawText(player?.currentScore.toString(), 150f, 50f, paint)
 
                 //enemies drawing cycle
                 for (e in enemies?.enemiesArray!!) {
