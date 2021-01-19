@@ -11,8 +11,10 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
 import kotlin.concurrent.timer
 
+
 class GameView : SurfaceView, Runnable {
 
+    lateinit var bitmap : Bitmap
     //life removal timer + boolean so it doesn't remove the player's lives all at once
     var lifeRemoval : Boolean = true
     var lifeRemovalTimer : Int = 0
@@ -115,10 +117,13 @@ class GameView : SurfaceView, Runnable {
         surfaceHolder?.let {
             if (it.surface.isValid) {
                 canvas = surfaceHolder?.lockCanvas()
-                canvas?.drawColor(Color.BLACK)
+                paint.color = Color.WHITE
+                bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fundo)
+                bitmap = Bitmap.createScaledBitmap(bitmap, width,height,true)
+                canvas?.drawBitmap(bitmap, 0f,0f,paint)
+
 
                 //lives left text drawing
-                paint.color = Color.WHITE
                 paint.textSize = 40F
                 canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
                 canvas?.drawText("Score: " + player?.currentScore, width - 400f, 50f, paint)
