@@ -16,6 +16,14 @@ class MainActivity : Activity() {
             val intent = Intent(this@MainActivity, Game::class.java)
             startActivity(intent)
         }
+
+        val buttonMenu = findViewById<Button>(R.id.button_Menu)
+        buttonMenu.setOnClickListener{
+            val intent = Intent(this@MainActivity, Options::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
 

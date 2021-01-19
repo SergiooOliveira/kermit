@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fundo">
+    android:background="@drawable/fundo"
+    tools:context=".Options">
+
 
     <ImageView
         android:id="@+id/imageView2"
@@ -21,14 +23,35 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/vibration"
         android:layout_width="176dp"
         android:layout_height="27dp"
         android:layout_marginTop="59dp"
-        android:text="Switch"
+        android:text="Vibration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Switch
+        android:id="@+id/song"
+        android:layout_width="176dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="84dp"
+        android:text="Song"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/button_beck_op_to_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Save and Bcak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/song" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
