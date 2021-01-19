@@ -1,8 +1,9 @@
 package ipca.cm.kermit
 
-import android.view.MotionEvent
-import android.view.View
-import android.widget.ImageView
+import android.graphics.Rect
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
 class Player {
 
@@ -32,14 +33,26 @@ class Player {
         _isShooting = value
     }
 
-    // imageView
-    var imageView : ImageView? = null
+    // Bitmap image
+    var bitmap : Bitmap
 
-    constructor(width: Int, height: Int, imageView: ImageView?){
+    //collision rect
+    var collisionRect : Rect
+
+    constructor(width: Int, height: Int, context: Context){
         x = width / 2
         y = height - (height / 4)
         shootY = y
-        this.imageView = imageView
+        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.angry_pepe)
+        bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
+        collisionRect = Rect(x,y,bitmap.width,bitmap.height)
+    }
+
+    fun update(){
+        collisionRect.left = x
+        collisionRect.top = y
+        collisionRect.right = x + bitmap.width
+        collisionRect.bottom = y + bitmap.height
     }
 
     fun shoot() {

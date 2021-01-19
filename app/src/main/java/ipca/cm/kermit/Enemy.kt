@@ -1,6 +1,10 @@
 package ipca.cm.kermit
 
-import android.widget.Toast
+
+import android.graphics.Rect
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import java.util.*
 
 class Enemy {
@@ -15,15 +19,25 @@ class Enemy {
     private var timer = 0
     var playing = true
 
-    constructor(width: Int, height: Int) {
+    //bitmap image
+    var bitmap : Bitmap
+
+    //collision rectangle
+    var collisionRect : Rect
+
+    constructor(width: Int, height: Int, context: Context) {
         maxX = width
         minX = 0
         maxY = height / 4
         minY = 0
 
+        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pepe_sad)
+        bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
         val generator =  Random()
         x = generator.nextInt(maxX)
         y = generator.nextInt(maxY)
+
+        collisionRect = Rect(x,y,bitmap.width,bitmap.height)
     }
 
     fun update(height: Int){

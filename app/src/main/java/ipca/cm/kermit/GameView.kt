@@ -23,10 +23,8 @@ class GameView : SurfaceView, Runnable {
 
     private fun init(context: Context?, width: Int, height: Int){
         surfaceHolder = holder
-
-        kermit?.findViewById<ImageView>(R.id.kermit)
-        player = Player(width, height, kermit)
-        enemies = Enemies(width, height, 10)
+        player = Player(width, height, context!!)
+        enemies = Enemies(width, height, 10, context!!)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -52,19 +50,28 @@ class GameView : SurfaceView, Runnable {
     }
 
     private fun update() {
+        player?.update()
         enemies?.update(player!!.KermitHeight)
         for (e in enemies?.enemiesArray!!) {
             if (e.y >= e.maxY * 4 && e.playing) {
                 e.playing = false
-                player?.lifesRemaining = player?.lifesRemaining!! - 1
+                if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
+                //TODO: gameover logic
+                //else
+            }
+            if(Rect.intersects(player!!.collisionRect, e.collisionRect)){
+                e.playing = false
+                if (player?.lifesRemaining!! > 0) player?.lifesRemaining = player?.lifesRemaining!! - 1
+                //TODO: gameover logic
+                //else
             }
         }
+        //TODO: shooting and bullet collision testing + score
         if (player?.isShooting!!) {
             player?.shoot()
             if (player?.shootY!! <= height)
                 player?.isShooting = false
         }
-
     }
 
     private fun control() {
@@ -82,23 +89,14 @@ class GameView : SurfaceView, Runnable {
                 paint.textSize = 40F
                 canvas?.drawText("Lifes remaining: " + player?.lifesRemaining, 0f, 50f, paint)
 
-                //player drawing
-                canvas?.drawRect(
-                        player?.x!!.toFloat(),
-                        player?.y!!.toFloat(),
-                        player?.x!!.toFloat() + 100f,
-                        player?.y!!.toFloat() + 100f, paint)
-
                 //enemies drawing cycle
                 for (e in enemies?.enemiesArray!!) {
                     if (e.playing)
-                        canvas?.drawRect(
-                                e.x.toFloat(),
-                                e.y.toFloat(),
-                                e.x.toFloat() + 100f,
-                                e.y.toFloat() + 100f,
-                                paint)
+                        canvas?.drawBitmap(e.bitmap, e.x.toFloat(), e.y.toFloat(), paint)
                 }
+
+                //player drawing
+                canvas?.drawBitmap(player!!.bitmap, player!!.x.toFloat(), player!!.y.toFloat(), paint)
 
                 //drawing bullets
                 paint.color = Color.GREEN
