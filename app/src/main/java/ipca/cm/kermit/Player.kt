@@ -22,6 +22,10 @@ class Player {
         get() = y
         set(value) {}
 
+    var KermiteWidth : Int
+        get() = x
+        set(value) {}
+
     // number of lifes
     var lifesRemaining = 3
 
@@ -65,6 +69,10 @@ class Player {
             bitTimer = 0
             bitShow = 2
         }
+    }
+
+    fun getPlayerX() : Int {
+        return x
     }
 
 }

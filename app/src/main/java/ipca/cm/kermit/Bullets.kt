@@ -1,20 +1,25 @@
 package ipca.cm.kermit
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Rect
 
-class Bullets {
+class Bullets(context: Context, height: Int) {
+
     var bulletsArray = mutableListOf<Bullet>()
+    var context : Context = context
+    var height : Int = height
 
-    constructor(width: Int, height: Int, quantity: Int, context: Context) {
-
-        for (i in 1..quantity) {
-            //while loop to delay the spawn of enemies
-            bulletsArray.add(Bullet(width, height, context))
-        }
+    fun addBullet(x: Int, y: Int) {
+        bulletsArray.add(Bullet(x, y, context))
     }
+
     fun update(){
         for (b in bulletsArray) {
             b.update()
+            if (b.y >= height)
+                b.active = false
         }
     }
 }

@@ -17,12 +17,14 @@ class Bullet {
     //collision rect
     var collisionRect : Rect
 
+    var active = true
+
     constructor(x: Int, y: Int, context: Context){
         this.x = x / 2
         this.y = y
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod1)
         bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, true)
-        collisionRect = Rect(x,y,bitmap.width,bitmap.height)
+        collisionRect = Rect(x, y, bitmap.width, bitmap.height)
     }
 
     fun update(){

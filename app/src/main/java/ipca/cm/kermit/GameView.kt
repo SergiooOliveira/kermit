@@ -11,10 +11,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
 import kotlin.concurrent.timer
 
-
 class GameView : SurfaceView, Runnable {
 
-    lateinit var bitmap : Bitmap
     //life removal timer + boolean so it doesn't remove the player's lives all at once
     var lifeRemoval : Boolean = true
     var lifeRemovalTimer : Int = 0
@@ -47,8 +45,6 @@ class GameView : SurfaceView, Runnable {
         player = Player(width, height, context!!)
         enemies = Enemies(width, height, 3, context!!)
         mContext = getContext()
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fundo)
-        bitmap = Bitmap.createScaledBitmap(bitmap, width,height,true)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -97,6 +93,7 @@ class GameView : SurfaceView, Runnable {
                     mContext?.startActivity(intent)
                 }
             }
+
             //TODO:bullet collision testing + score
             if(bulletCount > 0) {
                 if (Rect.intersects(bullet!!.collisionRect, e.collisionRect) && _isShooting) {
@@ -118,13 +115,10 @@ class GameView : SurfaceView, Runnable {
         surfaceHolder?.let {
             if (it.surface.isValid) {
                 canvas = surfaceHolder?.lockCanvas()
-                paint.color = Color.WHITE
-
-                //background drawing
-
-                canvas?.drawBitmap(bitmap, 0f,0f,paint)
+                canvas?.drawColor(Color.BLACK)
 
                 //lives left text drawing
+                paint.color = Color.WHITE
                 paint.textSize = 40F
                 canvas?.drawText("Lives remaining: " + player?.lifesRemaining, 0f, 50f, paint)
                 canvas?.drawText("Score: " + player?.currentScore, width - 400f, 50f, paint)
