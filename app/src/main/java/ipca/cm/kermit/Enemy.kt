@@ -27,7 +27,7 @@ class Enemy {
 
     constructor(width: Int, height: Int, context: Context) {
 
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pepe_sad)
+        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.inimigos)
         bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
         maxX = width - bitmap.width
         minX = 0
