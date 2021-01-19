@@ -43,7 +43,7 @@ class MainActivity : Activity() {
         }
         val buttonregister = findViewById<Button>(R.id.button_register)
         buttonregister.setOnClickListener{
-            val intent = Intent(this@MainActivity, Scores::class.java)
+            val intent = Intent(this@MainActivity, Register::class.java)
             startActivity(intent)
         }
 
