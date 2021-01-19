@@ -11,6 +11,10 @@ class Player {
     var x = 0
     var y = 0
 
+    //timer to change between bitmaps
+    var bitTimer : Int = 0
+    var bitShow : Int = 1
+
     var shootX = 0
     var shootY = 0
 
@@ -24,17 +28,10 @@ class Player {
     // score
     var currentScore = 0
 
-    // shooting boolean
-    private var _isShooting = false
-
-    var isShooting : Boolean
-    get() = _isShooting
-    set(value) {
-        _isShooting = value
-    }
-
     // Bitmap image
     var bitmap : Bitmap
+    var bitmap2 : Bitmap
+    var bitDraw : Bitmap
 
     //collision rect
     var collisionRect : Rect
@@ -42,9 +39,11 @@ class Player {
     constructor(width: Int, height: Int, context: Context){
         x = width / 2
         y = height - (height / 4)
-        shootY = y
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.angry_pepe)
+        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod1)
+        bitmap2 = BitmapFactory.decodeResource(context.resources, R.drawable.player_mod2)
         bitmap = Bitmap.createScaledBitmap(bitmap, 175, 175, true)
+        bitmap2 = Bitmap.createScaledBitmap(bitmap2, 175, 175, true)
+        bitDraw = bitmap
         collisionRect = Rect(x,y,bitmap.width,bitmap.height)
     }
 
@@ -55,7 +54,17 @@ class Player {
         collisionRect.bottom = y + bitmap.height
     }
 
-    fun shoot() {
-        shootY -= 5
+    fun changeBitMap(){
+        if (bitTimer >= 20 && bitShow == 2){
+            bitDraw = bitmap
+            bitTimer = 0
+            bitShow = 1
+        }
+        if (bitTimer >= 20 && bitShow == 1) {
+            bitDraw = bitmap2
+            bitTimer = 0
+            bitShow = 2
+        }
     }
+
 }
