@@ -47,6 +47,8 @@ class GameView : SurfaceView, Runnable {
         player = Player(width, height, context!!)
         enemies = Enemies(width, height, 3, context!!)
         mContext = getContext()
+        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fundo)
+        bitmap = Bitmap.createScaledBitmap(bitmap, width,height,true)
     }
 
     constructor(context: Context?, width: Int, height: Int) : super(context){
@@ -95,7 +97,6 @@ class GameView : SurfaceView, Runnable {
                     mContext?.startActivity(intent)
                 }
             }
-
             //TODO:bullet collision testing + score
             if(bulletCount > 0) {
                 if (Rect.intersects(bullet!!.collisionRect, e.collisionRect) && _isShooting) {
@@ -118,11 +119,10 @@ class GameView : SurfaceView, Runnable {
             if (it.surface.isValid) {
                 canvas = surfaceHolder?.lockCanvas()
                 paint.color = Color.WHITE
-                bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fundo)
-                bitmap = Bitmap.createScaledBitmap(bitmap, width,height,true)
+
+                //background drawing
+
                 canvas?.drawBitmap(bitmap, 0f,0f,paint)
-
-
 
                 //lives left text drawing
                 paint.textSize = 40F
