@@ -33,7 +33,6 @@ class GameView : SurfaceView, Runnable {
 
     //bullet variables
     var bullets : Bullets? = null
-    var _isShooting = false
     var createBullet = false
     var bulletCount = 0
 

@@ -11,7 +11,7 @@ class GameOver : Activity() {
         setContentView(R.layout.activity_game_over)
 
 
-        val buttonagin = findViewById<Button>(R.id.button_agin_back)
+        val buttonagin = findViewById<Button>(R.id.button_menu)
         buttonagin.setOnClickListener {
             val intent = Intent(this@GameOver,MainActivity::class.java)
             startActivity(intent)
